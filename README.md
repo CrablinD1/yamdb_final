@@ -1,4 +1,4 @@
-![yamdb_workflow Actions Status](https://github.com/crablind1/yamdb_final/workflows/yamdb_workflow/badge.svg)
+![yamdb_workflow Actions Status](https://github.com/crablind1/yamdb_final/workflows/yamdb_final%20workflow/badge.svg)
 
 
 # api_yamdb
