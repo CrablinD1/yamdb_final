@@ -57,8 +57,7 @@ class Title(models.Model):
         validators=[
             MinValueValidator(1000),
             MaxValueValidator(datetime.date.today().year)
-        ]
-        , db_index=True
+        ], db_index=True
     )
 
     description = models.TextField(
