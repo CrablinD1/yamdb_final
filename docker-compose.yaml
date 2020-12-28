@@ -1,0 +1,34 @@
+version: '3.8'
+
+
+volumes:
+  postgres_data:
+
+
+services:
+  db:
+    image: postgres:12.4
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+  web:
+    image: crablind1/yamdb_final
+    volumes:
+      - ./yamdb_final:/srv/www/<project>
+    expose:
+      - 8000
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - ./static:/srv/www/yamdb_final/static
+      - ./media:/srv/www/yamdb_final/media
+    ports:
+      - 80:80
+    depends_on:
+      - web
