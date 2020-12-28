@@ -51,15 +51,14 @@ jobs:
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
-       host: ${{ secrets.HOST }}
-       username: ${{ secrets.USER }}
-       key: ${{ secrets.SSH_KEY }}
-       passphrase: ${{ secrets.PASSPHRASE }}
-       script: |
-            cd yamdb_final
-            git pull
-            sudo docker-compose down
-            sudo docker-compose up -d
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }} # если ваш ssh-ключ защищен фразой-паролем
+          script: |
+            sudo docker pull crablind1/yamdb_final
+            sudo docker stop $(sudo docker ps -a -q)
+            sudo docker run --rm -d -p 5000:5000 crablind1/yamdb_final
          
   send_message:
     runs-on: ubuntu-latest
