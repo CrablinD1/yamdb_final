@@ -57,6 +57,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }} # если ваш ssh-ключ защищен фразой-паролем
           script: |
+            cd yamdb_final
             sudo docker-compose down
             sudo docker pull crablind1/yamdb_final:latest
             sudo docker-compose up
