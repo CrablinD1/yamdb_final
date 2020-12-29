@@ -50,7 +50,7 @@ jobs:
     needs: build_and_push_to_docker_hub
     steps:
       - uses: actions/checkout@master
-      - name: copy configs to server
+      - name: copy config to server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -58,8 +58,8 @@ jobs:
           port: ${{ secrets.PORT }}
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
-          source: 'docker-compose.yaml'
-          target: '/home/crablin/yamdb'
+          source: "docker-compose.yaml"
+          target: "~/"
 
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
@@ -69,7 +69,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            sudo cd yamdb
             sudo docker-compose down
             sudo docker pull crablind1/yamdb_final:latest
             sudo docker-compose up -d
