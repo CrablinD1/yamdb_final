@@ -45,6 +45,11 @@ jobs:
           tags: crablind1/yamdb_final
   
   deploy:
+    on:
+      push:
+        branches:
+          - master
+          - main
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
     steps:
@@ -56,9 +61,9 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }} # если ваш ssh-ключ защищен фразой-паролем
           script: |
-            sudo docker pull crablind1/yamdb_final
-            sudo docker stop $(sudo docker ps -a -q)
-            sudo docker run --rm -d -p 5000:5000 crablind1/yamdb_final
+            sudo docker-compose down
+            sudo docker pull crablind1/yamdb_final:latest
+            sudo docker-compose up
          
   send_message:
     runs-on: ubuntu-latest

@@ -18,16 +18,16 @@ services:
       - ./yamdb_final:/srv/www/<project>
     expose:
       - 8000
-    ports:
-      - 8000:8000
     depends_on:
       - db
 
   nginx:
-    build: ./nginx
+    image: nginx:1.19.6
+    container_name: yamdb_nginx
     volumes:
       - ./static:/srv/www/yamdb_final/static
       - ./media:/srv/www/yamdb_final/media
+      - ./nginx:/etc/nginx/conf.d
     ports:
       - 80:80
     depends_on:
